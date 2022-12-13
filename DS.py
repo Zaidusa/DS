@@ -1,60 +1,70 @@
-# import the streamlit library
+	# import the streamlit library
+import pickle
+from pathlib import Path
+
 import streamlit as st
+from PIL import Image
 
-# give a title to our app
-st.title('Welcome to BMI Calculator123')
+st.title("The Banking Cibil App")
 
-# TAKE WEIGHT INPUT in kgs
-weight = st.number_input("Enter your weight (in kgs)")
+# image = Image.open('C:\\Users\\vella\\PycharmProjects\\DS\\unsplash.jpg')
+#
+# st.image(image, caption='Sunrise by the mountains')
+
+video_file = open('C:\\Users\\vella\\PycharmProjects\\DS\\bank.mp4', 'rb')
+video_bytes = video_file.read()
+
+st.video(video_bytes)
+
+Age = st.number_input("Age of the customer")
 
 # TAKE HEIGHT INPUT
 # radio button to choose height format
-status = st.radio('Select your height format: ',
-				('cms', 'meters', 'feet'))
+Gender = st.radio('Gender: ',
+				('Male', 'Female', 'Trans'))
 
-# compare status value
-if(status == 'cms'):
-	# take height input in centimeters
-	height = st.number_input('Centimeters')
+Emptype=st.selectbox("EmpType:",['Private','Govt'])
 
-	try:
-		bmi = weight / ((height/100)**2)
-	except:
-		st.text("Enter some value of height")
+	# compare status value
 
-elif(status == 'meters'):
-	# take height input in meters
-	height = st.number_input('Meters')
+if( Gender== 'Male'):
+# take height input in centimeters
+	malesal = st.number_input('sal in between 50 to 100 thousand')
 
 	try:
-		bmi = weight / (height ** 2)
+		avgsal = (malesal / (12))
 	except:
-		st.text("Enter some value of height")
+		st.text("Enter sal greater than 10000")
 
+elif(Gender == 'Female'):
+# take height input in meters
+	femalesal = st.number_input('eneter sal of both husband and wife')
+
+	try:
+		avgsal = (femalesal / (12))
+	except:
+		st.text("Enter sal greater than 10000")
 else:
-	# take height input in feet
-	height = st.number_input('Feet')
-
-	# 1 meter = 3.28
-	try:
-		bmi = weight / (((height/3.28))**2)
-	except:
-		st.text("Enter some value of height")
+	st.text("Trans gender not eleigible")
 
 # check if the button is pressed or not
-if(st.button('Calculate BMI')):
+if(st.button('Calculate Cibil')):
 
 	# print the BMI INDEX
-	st.text("Your BMI Index is {}.".format(bmi))
+	st.text("Your avg sal is {}.".format(avgsal))
 
 	# give the interpretation of BMI index
-	if(bmi < 16):
-		st.error("You are Extremely Underweight")
-	elif(bmi >= 16 and bmi < 18.5):
-		st.warning("You are Underweight")
-	elif(bmi >= 18.5 and bmi < 25):
-		st.success("Healthy")
-	elif(bmi >= 25 and bmi < 30):
-		st.warning("Overweight")
-	elif(bmi >= 30):
-		st.error("Extremely Overweight")
+	if(avgsal < 3):
+		st.error("You are Extremely uneleigible")
+	elif(avgsal >= 3 and avgsal < 6):
+		st.warning("You need to improve cibil ")
+	elif(avgsal >=6  and avgsal < 100):
+		st.success("you are eligible")
+	else:
+		st.text("no proper information")
+
+
+
+
+
+
